@@ -7,7 +7,7 @@ int main() {
 	AVL<int> AVL_Tree;
 	std::vector<Node<int>*> preorder;
 
-	// Insert
+	// Insert elements
 	AVL_Tree.Insert(21);
 	AVL_Tree.Insert(98);
 	AVL_Tree.Insert(86);
@@ -24,7 +24,7 @@ int main() {
 	AVL_Tree.Insert(7);
 	AVL_Tree.Insert(2);
 
-	// Print insert
+	// Print elements
 	std::cout << "AVL tree nodes:\n";
 	std::cout << "> ";
 
@@ -36,14 +36,14 @@ int main() {
 
 	std::cout << '\n';
 
-	// Delete
+	// Delete elements
 	AVL_Tree.Delete(2);
 	AVL_Tree.Delete(48);
 	AVL_Tree.Delete(98);
 	AVL_Tree.Delete(22);
 	AVL_Tree.Delete(1);
 
-	// Print delete
+	// Print elements
 	std::cout << "AVL tree nodes:\n";
 	std::cout << "> ";
 
@@ -55,7 +55,7 @@ int main() {
 
 	std::cout << '\n';
 
-	// Search node1
+	// Search for Node1
 	const auto& node1 = AVL_Tree.Search(55);
 	std::cout << "Node1 Key:\n";
 
@@ -66,8 +66,8 @@ int main() {
 		std::cout << "> Node1 not found!\n";
 	}
 
-	// Search node2
-	const auto& node2 = AVL_Tree.Search(2137);
+	// Search for Node2
+	const auto& node2 = AVL_Tree.Search(96);
 	std::cout << "Node2 Key:\n";
 
 	if (node2) {
