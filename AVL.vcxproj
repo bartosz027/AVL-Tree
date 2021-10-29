@@ -86,10 +86,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Example.cpp" />
+    <ClCompile Include="include\Example.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\AVL\AVL.h" />
+    <ClInclude Include="include\AVL\AVL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
