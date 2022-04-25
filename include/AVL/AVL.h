@@ -16,7 +16,7 @@ template<typename T>
 class AVL {
 public:
 	AVL() :
-		m_Root(nullptr), m_ModifyTree(true) {
+		m_Root(nullptr), m_AllowTreeModifications(true) {
 	}
 
 	void Insert(T value);
@@ -31,7 +31,7 @@ private:
 	void Delete(Node<T>*& node, T value);
 
 	Node<T>* Search(Node<T>* node, T value) const;
-	void PreorderTraversal(Node<T>* node, std::vector<Node<T>*>& klp) const;
+	void PreorderTraversal(Node<T>* node, std::vector<Node<T>*>& traversal) const;
 
 	Node<T>* LR(Node<T>* node) const;
 	Node<T>* RL(Node<T>* node) const;
@@ -43,13 +43,13 @@ private:
 	void CalculateBalance(Node<T>* node) const;
 private:
 	Node<T>* m_Root;
-	bool m_ModifyTree;
+	bool m_AllowTreeModifications;
 };
 
 
 template<typename T>
 inline void AVL<T>::Insert(T value) {
-	m_ModifyTree = true;
+	m_AllowTreeModifications = true;
 	Insert(m_Root, value);
 }
 
@@ -66,7 +66,7 @@ inline void AVL<T>::Insert(Node<T>*& node, T value) {
 		Insert(node->Right, value);
 	}
 
-	if (m_ModifyTree) {
+	if (m_AllowTreeModifications) {
 		CalculateHeight(node);
 		CalculateBalance(node);
 
@@ -78,7 +78,7 @@ inline void AVL<T>::Insert(Node<T>*& node, T value) {
 				node = RL(node);
 			}
 
-			m_ModifyTree = false;
+			m_AllowTreeModifications = false;
 		}
 
 		if (node->Balance == 2) {
@@ -89,11 +89,11 @@ inline void AVL<T>::Insert(Node<T>*& node, T value) {
 				node = LR(node);
 			}
 
-			m_ModifyTree = false;
+			m_AllowTreeModifications = false;
 		}
 
 		if (node->Balance == 0) {
-			m_ModifyTree = false;
+			m_AllowTreeModifications = false;
 		}
 	}
 }
@@ -115,7 +115,7 @@ inline Node<T>* AVL<T>::Create(T value) {
 
 template<typename T>
 inline void AVL<T>::Delete(T value) {
-	m_ModifyTree = true;
+	m_AllowTreeModifications = true;
 	Delete(m_Root, value);
 }
 
@@ -154,7 +154,7 @@ inline void AVL<T>::Delete(Node<T>*& node, T value) {
 		Delete(node->Right, value);
 	}
 
-	if (m_ModifyTree) {
+	if (m_AllowTreeModifications) {
 		CalculateHeight(node);
 		CalculateBalance(node);
 
@@ -177,7 +177,7 @@ inline void AVL<T>::Delete(Node<T>*& node, T value) {
 		}
 
 		if (node->Balance == -1 || node->Balance == 1) {
-			m_ModifyTree = false;
+			m_AllowTreeModifications = false;
 		}
 	}
 }
@@ -208,21 +208,21 @@ inline Node<T>* AVL<T>::Search(Node<T>* node, T value) const {
 template<typename T>
 std::vector<Node<T>*> AVL<T>::GetPreorderTraversal() const {
 	if (m_Root) {
-		std::vector<Node<T>*> klp;
-		PreorderTraversal(m_Root, klp);
+		std::vector<Node<T>*> result;
+		PreorderTraversal(m_Root, result);
 
-		return klp;
+		return result;
 	}
 
 	return std::vector<Node<T>*>();
 }
 
 template<typename T>
-void AVL<T>::PreorderTraversal(Node<T>* node, std::vector<Node<T>*>& klp) const {
+void AVL<T>::PreorderTraversal(Node<T>* node, std::vector<Node<T>*>& traversal) const {
 	if (node) {
-		klp.push_back(node);
-		PreorderTraversal(node->Left, klp);
-		PreorderTraversal(node->Right, klp);
+		traversal.push_back(node);
+		PreorderTraversal(node->Left,  traversal);
+		PreorderTraversal(node->Right, traversal);
 	}
 }
 
